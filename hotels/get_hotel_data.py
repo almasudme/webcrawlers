@@ -429,14 +429,15 @@ def update_info_cities_json(input_file='cities.txt',output_file='info_cities.jso
     new_cities = []
     bar_length = 48
     count = 0
-    for i,c_s in enumerate(cities[301:400]):
+    enum_cities = cities[700:800]
+    for i,c_s in enumerate(enum_cities):
         # print(c_s)
         time.sleep(0.02)
         temp_info_cities = str(get_tripadvisor_hotels(api_key=my_api_key, city_state = c_s))
         temp_info_cities = eval(temp_info_cities)
         new_cities.extend(temp_info_cities)
         sys.stdout.write('\r')
-        sys.stdout.write(f"Completed: {c_s} |[{i} of {20}]")
+        sys.stdout.write(f"Completed: {c_s} |[{i} of {len(enum_cities)}]")
     
     # review_df.to_sql(con=conn,index=True,if_exists="replace",name="info")
     # conn.close()
@@ -458,12 +459,12 @@ if __name__ == "__main__":
     # Replace with your actual API key
     
     ### Create input json file 
-    # update_info_cities_json()
-    dict_info_cities = get_dict_from_json(json_file = 'info_cities.json')
+    update_info_cities_json()
+    # dict_info_cities = get_dict_from_json(json_file = 'info_cities.json')
     # df = pd.DataFrame.from_dict(dict_info_cities)
     # df.to_csv('blabla.csv')
 
     ### Create hotel info csv 
     # update_info_csv('hotels_info.csv')
     # ## Create hotel reviews csv 
-    update_review_csv('hotel_reviews.csv')
+    # update_review_csv('hotel_reviews.csv')
